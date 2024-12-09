@@ -155,24 +155,31 @@ void viewSeats() {
 void cancelTicket() {
     string busNuber;
     cout << "You are about to cancel a ticket."<< endl;
-    cout << "Enter Bus Number: ";
-    cin.ignore();
-    getline(cin, busNuber);
 
     Bus* selectedBus = nullptr;
-    for (auto& bus : buses) {
-        if (bus.busNumber == busNuber) {
-                selectedBus = &bus;
-                break;
+
+    //loop till valid input  is entered
+    while (true) {
+        cout << "Enter Bus Number: ";
+        cin.ignore();
+        getline(cin, busNuber);
+
+
+        for (auto& bus : buses) {
+            if (bus.busNumber == busNuber) {
+                    selectedBus = &bus;
+                    break;
+            }
+        }
+        if (selectedBus != nullptr) {
+            break;
         }
 
-    if (selectedBus == nullptr) {
         cout << "Bus not found. Please Try Again! \n";
-        return;
-    }
     }
 
 
+    while (true) {
     cout << "\n=============== Seat arrangement for Bus Number: " << selectedBus->busNumber << " ==============="<<endl;
     cout << "\n";
     for (int i = 0; i < selectedBus->seats.size(); i++) {
@@ -185,30 +192,39 @@ void cancelTicket() {
             }
 
     }
+    cout << "\n";
 
     int seatNumber;
-    while (true) {
         cout << "Enter Seat Number to Cancel: ";
         cin >> seatNumber;
 
-        if (cin.fail() || seatNumber < 1 || seatNumber >20) {
+        if (cin.fail() || seatNumber < 1 || seatNumber > selectedBus->seats.size()) {
             cin.clear();
             cin.ignore (1000, '\n');
-            cout << "Invalid seat number. Please enter a number (1-20).\n";
+            cout << "Invalid seat number. Please enter a number (1-" << selectedBus->seats.size() << ").\n";
+        } else if (selectedBus->seats[seatNumber - 1] == "Empty") {
+            cout << "Seat " << seatNumber << " is already empty. Please choose another seat.\n";
         } else {
-            break;
+            // Valid seat number and seat is not empty
+            cout << "Ticket for seat " << seatNumber << " canceled (Passenger: " << selectedBus->seats[seatNumber - 1] << ").\n";
+            selectedBus->seats[seatNumber - 1] = "Empty";
+            cout << "The seat has been successfully canceled.\n";
+            break; // Exit loop after successful cancellation
         }
     }
 
-    if (selectedBus->seats[seatNumber - 1] == "Empty") {
-        cout << "Seat " << seatNumber << " is already empty.\n";
-    } else {
-        cout << "Ticket for seat " << seatNumber << " canceled. (passenger: " <<selectedBus->seats[seatNumber - 1] << ")\n";
-        selectedBus->seats[seatNumber - 1] = "Empty";
-        cout << "\n You can also view the new seat arrangement for the bus.\n";
+    // Display final seat arrangement
+    cout << "\n=============== Final Seat Arrangement: ===============\n";
+    for (size_t i = 0; i < selectedBus->seats.size(); ++i) {
+        cout << " [" << i + 1 << ": " << selectedBus->seats[i] << "] ";
+        if ((i+1) % 2 == 0){
+            cout << " \t ";
+        }
+        if ((i + 1) % 4 == 0) {
+            cout << "\n\n";
+        }
     }
-
-    viewSeats();
+    cout << "\n";
 
 }
 
