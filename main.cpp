@@ -153,7 +153,7 @@ void viewSeats() {
 
 
 void cancelTicket() {
-    string busNuber;
+    string busNumber;
     cout << "You are about to cancel a ticket."<< endl;
 
     Bus* selectedBus = nullptr;
@@ -162,11 +162,11 @@ void cancelTicket() {
     while (true) {
         cout << "Enter Bus Number: ";
         cin.ignore();
-        getline(cin, busNuber);
+        getline(cin, busNumber);
 
 
         for (auto& bus : buses) {
-            if (bus.busNumber == busNuber) {
+            if (bus.busNumber == busNumber) {
                     selectedBus = &bus;
                     break;
             }
@@ -215,6 +215,8 @@ void cancelTicket() {
 
     // Display final seat arrangement
     cout << "\n=============== Final Seat Arrangement: ===============\n";
+    cout << "\n";
+
     for (size_t i = 0; i < selectedBus->seats.size(); ++i) {
         cout << " [" << i + 1 << ": " << selectedBus->seats[i] << "] ";
         if ((i+1) % 2 == 0){
@@ -281,7 +283,7 @@ int main(){
                     default:
                         cout << "Invalid choice. Try again!! \n";
                 }
-        }while(choice != 5);
+        }while(choice != 6);
 
     return 0;
 }
