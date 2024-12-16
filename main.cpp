@@ -216,7 +216,10 @@ void cancelTicket() {
     // Display final seat arrangement
     cout << "\n=============== Final Seat Arrangement: ===============\n";
     cout << "\n";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1877a9b44bb4909e60aad3806e531e29fa805338
     for (size_t i = 0; i < selectedBus->seats.size(); ++i) {
         cout << " [" << i + 1 << ": " << selectedBus->seats[i] << "] ";
         if ((i+1) % 2 == 0){
