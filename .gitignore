@@ -1,0 +1,20 @@
+# Ignore build directories
+bin/
+obj/
+
+# Ignore IDE-generated layout and dependency files
+*.layout
+*.depend
+.cbp.layout
+.layout
+
+# Ignore backup or temp files
+*~
+*.swp
+*.tmp
+.DS_Store
+Thumbs.db
+
+# ignore IDE-SPECIFIC FILES
+*.cbp
+
